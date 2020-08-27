@@ -1,18 +1,19 @@
 import React from 'react';
+import styles from './styles.module.sass';
 
 function BookTableHead() {
   return (
-    <thead>
+    <thead className={styles.tHead}>
       <tr>
-        <th>Картинка</th>
-        <th>Заголовок</th>
-        <th>Список авторов</th>
-        <th>Количество страниц</th>
-        <th>Название издательства</th>
-        <th>Год публикации</th>
-        <th>Дата выхода в тираж</th>
-        <th>ISBN</th>
-        <th>Действия</th>
+        <th scope="col">Картинка</th>
+        <th scope="col">Заголовок</th>
+        <th scope="col">Список авторов</th>
+        <th scope="col">Количество страниц</th>
+        <th scope="col">Название издательства</th>
+        <th scope="col">Год публикации</th>
+        <th scope="col">Дата выхода в тираж</th>
+        <th scope="col">ISBN</th>
+        <th scope="col">Действия</th>
       </tr>
     </thead>
   );

@@ -1,26 +1,42 @@
 import React from 'react';
+import ModalPortal from '../../Modals/ModalPortal';
+import modalStyles from '../../Modals/ModalPortal/styles.module.sass';
+import RemoveBookModal from '../../Modals/RemoveBookModal';
 
-function BookItem({ book }) {
+function BookItem({ book, showModal, setShowModal }) {
   return (
     <tr>
       <td>какая-то картинка</td>
       <td>{book.title}</td>
       <td>
-        {book.authors.map(((authors) => (
-          <ul key={authors.firstName + authors.lastName}>
-            <li>{authors.firstName}</li>
-            <li>{authors.lastName}</li>
-          </ul>
-        )))}
+        <ul>
+          {book.authors.map(((author) => (
+            <li key={author.id + author.firstName}>
+              {author.firstName}
+              {' '}
+              {author.lastName}
+            </li>
+          )))}
+        </ul>
       </td>
       <td>{book.numberOfPages}</td>
-      <td>{book.publishHouse}</td>
-      <td>{book.publishYear}</td>
-      <td>{book.releaseDate}</td>
-      <td>{book.isbn}</td>
+      {book.publishHouse ? <td>{book.publishHouse}</td> : <td>пусто</td>}
+      {book.publishYear ? <td>{book.publishYear}</td> : <td>пусто</td>}
+      {book.releaseDate ? <td>{book.releaseDate}</td> : <td>пусто</td>}
+      {book.isbn ? <td>{book.isbn}</td> : <td>пусто</td>}
       <td>
         <button>Изменить</button>
-        <button>Удалить</button>
+        {showModal === 'edit' && (
+          <ModalPortal className={modalStyles.myModal}>
+            <RemoveBookModal setShowModal={setShowModal} />
+          </ModalPortal>
+        )}
+        <button onClick={() => setShowModal('delete')}>Удалить</button>
+        {showModal === 'delete' && (
+          <ModalPortal className={modalStyles.myModal}>
+            <RemoveBookModal id={book.id} setShowModal={setShowModal} />
+          </ModalPortal>
+        )}
       </td>
     </tr>
   );

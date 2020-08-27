@@ -8,11 +8,11 @@ export const required = (values) => {
 };
 
 export const minLength = (min) => (value) => (value && value.length < min
-  ? `Минимальное колличество символов ${min}`
+  ? `Минимальное количество символов ${min}`
   : undefined);
 
 export const maxLength = (max) => (value) => (value && value.length > max
-  ? `Максимальное колличество символов ${max}`
+  ? `Максимальное количество символов ${max}`
   : undefined);
 
 export const minCount = (min) => (value) => (value && value < min
