@@ -19,8 +19,8 @@ function RemoveBookModal({ id, setShowModal }) {
     <div className={styles.removeWrapper}>
       <h3>Вы действительно хотите удалить книгу?</h3>
       <div>
-        <button onClick={handleDelete}>Удалить</button>
-        <button onClick={() => setShowModal(false)}>Отмена</button>
+        <button type="button" onClick={handleDelete}>Удалить</button>
+        <button type="button" onClick={() => setShowModal(false)}>Отмена</button>
       </div>
     </div>
   );

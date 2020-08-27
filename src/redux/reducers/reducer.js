@@ -5,35 +5,35 @@ import actionTypes from '../actionTypes';
 const initialState = {
   books: [
     {
-      id: 5,
+      id: 'asdsgdfhfghry',
       title: 'JavaScript. Сильные стороны',
-      authors: [{ id: 1, firstName: 'Дуглас', lastName: 'Крокфорд' }],
+      authors: [{ id: 'zxczczxcassdas', firstName: 'Дуглас', lastName: 'Крокфорд' }],
       numberOfPages: 502,
       publishHouse: null,
       publishYear: 2012,
-      releaseDate: '01.02.1820',
+      releaseDate: '01-02-1820',
       isbn: null,
       img: null,
     },
     {
-      id: 6,
+      id: 'qweqwtreryy',
       title: 'Вы не знаете JS',
-      authors: [{ id: 2, firstName: 'Дуглас', lastName: 'Крокфорд' }],
+      authors: [{ id: 'bvnbvnbcvbb', firstName: 'Дуглас', lastName: 'Крокфорд' }],
       numberOfPages: 502,
       publishHouse: null,
       publishYear: 2012,
-      releaseDate: '01.02.1820',
+      releaseDate: '01-02-1820',
       isbn: null,
       img: null,
     },
     {
-      id: 7,
+      id: 'ghjghjghkgj',
       title: 'Выразительный Javascript',
-      authors: [{ id: 3, firstName: 'Марейн', lastName: 'Хавербек' }],
+      authors: [{ id: 'rtytrygjfgh', firstName: 'Марейн', lastName: 'Хавербек' }],
       numberOfPages: 502,
       publishHouse: null,
       publishYear: 2019,
-      releaseDate: '01.02.1820',
+      releaseDate: '01-02-1820',
       isbn: null,
       img: null,
     },
@@ -49,6 +49,16 @@ const reducer = (state = preloadedState, action) => {
         ...state,
         books: [...state.books, action.payload],
       };
+    }
+    case actionTypes.EDIT_BOOK: {
+      const newState = deepcopy(state);
+      newState.books = newState.books.map((book) => {
+        if (book.id === action.payload.id) {
+          return { ...book, ...action.payload.fieldsData };
+        }
+        return book;
+      });
+      return newState;
     }
     case actionTypes.REMOVE_BOOK: {
       const newState = deepcopy(state);

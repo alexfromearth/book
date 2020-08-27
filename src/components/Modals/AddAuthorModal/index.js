@@ -46,7 +46,8 @@ function AddAuthorModal({ setAuthors, setShowAuthorsModal }) {
               </div>
               <div>
                 <br />
-                <button disabled={submitting || pristine}>Добавить</button>
+                <button type="submit" disabled={submitting || pristine}>Добавить</button>
+                <button type="button" onClick={() => setShowAuthorsModal(false)}>Отмена</button>
               </div>
             </form>
           )}

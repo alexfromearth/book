@@ -5,7 +5,7 @@ import {
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import BookList from './components/BookList';
-import AddBookForm from './components/Forms/AddBookForm';
+import BookForm from './components/Forms/BookForm';
 
 function App() {
   return (
@@ -13,8 +13,11 @@ function App() {
       <Provider store={store}>
         <>
           <Switch>
+            <Route path="/books/:id">
+              <BookForm />
+            </Route>
             <Route path="/newBook">
-              <AddBookForm />
+              <BookForm />
             </Route>
             <Route path="/">
               <BookList />

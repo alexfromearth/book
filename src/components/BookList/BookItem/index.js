@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import ModalPortal from '../../Modals/ModalPortal';
 import modalStyles from '../../Modals/ModalPortal/styles.module.sass';
 import RemoveBookModal from '../../Modals/RemoveBookModal';
@@ -25,13 +26,8 @@ function BookItem({ book, showModal, setShowModal }) {
       {book.releaseDate ? <td>{book.releaseDate}</td> : <td>пусто</td>}
       {book.isbn ? <td>{book.isbn}</td> : <td>пусто</td>}
       <td>
-        <button>Изменить</button>
-        {showModal === 'edit' && (
-          <ModalPortal className={modalStyles.myModal}>
-            <RemoveBookModal setShowModal={setShowModal} />
-          </ModalPortal>
-        )}
-        <button onClick={() => setShowModal('delete')}>Удалить</button>
+        <NavLink to={`/books/${book.id}`}>Изменить</NavLink>
+        <button type="button" onClick={() => setShowModal('delete')}>Удалить</button>
         {showModal === 'delete' && (
           <ModalPortal className={modalStyles.myModal}>
             <RemoveBookModal id={book.id} setShowModal={setShowModal} />

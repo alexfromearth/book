@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 function ModalPortal({ children, className }) {
@@ -12,7 +12,7 @@ function ModalPortal({ children, className }) {
     return () => {
       ModalRoot.removeChild(element);
     };
-  }, []);
+  }, [ModalRoot, element]);
 
   return createPortal(children, element);
 }
