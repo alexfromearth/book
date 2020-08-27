@@ -2,7 +2,7 @@
 const composeValidators = (...validators) => (value) => validators.reduce((error, validator) => error || validator(value), undefined);
 export const required = (values) => {
   if (!values) {
-    return 'Required';
+    return 'Обязательное поле';
   }
   return undefined;
 };
@@ -15,10 +15,18 @@ export const maxLength = (max) => (value) => (value && value.length > max
   ? `Максимальное колличество символов ${max}`
   : undefined);
 
-export const minPublishAge = (min) => (value) => {
+export const minCount = (min) => (value) => (value && value < min
+  ? `Минимальное количество страниц ${min}`
+  : undefined);
+
+export const maxCount = (max) => (value) => (value && value > max
+  ? `Максимальное количество страниц ${max}`
+  : undefined);
+
+export const minPublishYear = (min) => (value) => {
   if (value) {
     const inputAge = new Date(value);
-    if (inputAge.getFullYear() > min) {
+    if (inputAge.getFullYear() >= min) {
       return undefined;
     }
     return `Минимальный год публикации ${min}`;

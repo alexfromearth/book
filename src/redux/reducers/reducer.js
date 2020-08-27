@@ -1,6 +1,9 @@
+import { loadState } from '../../utils/localStorage';
+
 const initialState = {
   books: [
     {
+      id: 1,
       title: 'JavaScript. Сильные стороны',
       authors: [{ firstName: 'Дуглас', lastName: 'Крокфорд' }],
       numberOfPages: 502,
@@ -11,6 +14,7 @@ const initialState = {
       img: null,
     },
     {
+      id: 2,
       title: 'Вы не знаете JS',
       authors: [{ firstName: 'Дуглас', lastName: 'Крокфорд' }],
       numberOfPages: 502,
@@ -21,16 +25,7 @@ const initialState = {
       img: null,
     },
     {
-      title: 'Вы не знаете JS',
-      authors: [{ firstName: 'Kyle', lastName: 'Simpson' }],
-      numberOfPages: 502,
-      publishHouse: null,
-      publishYear: 2015,
-      releaseDate: '01.02.1820',
-      isbn: null,
-      img: null,
-    },
-    {
+      id: 3,
       title: 'Выразительный Javascript',
       authors: [{ firstName: 'Марейн', lastName: 'Хавербек' }],
       numberOfPages: 502,
@@ -43,7 +38,9 @@ const initialState = {
   ],
 };
 
-const reducer = (state = initialState, action) => {
+const preloadedState = loadState() || initialState;
+
+const reducer = (state = preloadedState, action) => {
   switch (action.type) {
     default:
       return state;
