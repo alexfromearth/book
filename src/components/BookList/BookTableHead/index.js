@@ -1,12 +1,15 @@
 import React from 'react';
-import styles from './styles.module.sass';
+import './styles.sass';
 
-function BookTableHead() {
+function BookTableHead({ getClassNamesFor, requestSort, sortConfig }) {
   return (
-    <thead className={styles.tHead}>
+    <thead className="tHead">
       <tr>
         <th scope="col">Картинка</th>
-        <th scope="col">Заголовок</th>
+        <th scope="col">
+          <button type="button" onClick={() => requestSort('title')} className={getClassNamesFor('title')} />
+          Заголовок
+        </th>
         <th scope="col">Список авторов</th>
         <th scope="col">Количество страниц</th>
         <th scope="col">Название издательства</th>

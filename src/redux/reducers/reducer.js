@@ -38,6 +38,7 @@ const initialState = {
       img: null,
     },
   ],
+  sortConfig: null,
 };
 
 const preloadedState = loadState() || initialState;
@@ -59,6 +60,12 @@ const reducer = (state = preloadedState, action) => {
         return book;
       });
       return newState;
+    }
+    case actionTypes.SET_SORT_CONFIG: {
+      return {
+        ...state,
+        sortConfig: action.payload.config,
+      };
     }
     case actionTypes.REMOVE_BOOK: {
       const newState = deepcopy(state);
