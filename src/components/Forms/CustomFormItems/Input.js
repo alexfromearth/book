@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.sass';
 
-export const Input = ({ input, meta, ...rest }) => (
+export const Input = ({ input, meta }) => (
   <div>
     <div>
       <input

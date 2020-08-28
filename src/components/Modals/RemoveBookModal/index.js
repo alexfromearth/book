@@ -5,9 +5,9 @@ import { removeBook } from '../../../redux/actionCreators';
 import styles from './styles.module.sass';
 
 function RemoveBookModal({ id, setShowModal }) {
-  console.log(id);
   const dispatch = useDispatch();
   const history = useHistory();
+
   function handleDelete() {
     if (id) {
       dispatch(removeBook(id));

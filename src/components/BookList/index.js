@@ -23,7 +23,7 @@ function BookList() {
 
   return (
     <>
-      <NavLink to="/newBook">Добавить </NavLink>
+      <NavLink to="/newBook"><button className={styles.add} type="button">Добавить книгу</button></NavLink>
       <table className={styles.table}>
         <BookTableHead getClassNamesFor={getClassNamesFor} requestSort={requestSort} />
         <tbody>

@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Provider store={store}>
-        <>
+        <div className="wrapper">
           <Switch>
             <Route path="/books/:id">
               <BookForm />
@@ -23,7 +23,7 @@ function App() {
               <BookList />
             </Route>
           </Switch>
-        </>
+        </div>
       </Provider>
     </Router>
   );

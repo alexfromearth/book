@@ -5,6 +5,7 @@ import { setSortConfig } from '../redux/actionCreators';
 const useSortData = (items) => {
   const sortConfig = useSelector((state) => state.sortConfig);
   const dispatch = useDispatch();
+
   const sortedItems = useMemo(() => {
     const sortableItems = [...items];
     if (sortConfig) {

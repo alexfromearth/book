@@ -1,10 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles.module.sass';
 
 function BookItem({ book, setShowModal }) {
   return (
-    <tr>
+    <tr className={styles.wrapper}>
       <td>
         {book.img
           ? <img src={book.img} alt="avatar" className={styles.avatar} />
@@ -28,8 +30,8 @@ function BookItem({ book, setShowModal }) {
       {book.releaseDate ? <td>{book.releaseDate}</td> : <td>пусто</td>}
       {book.isbn ? <td>{book.isbn}</td> : <td>пусто</td>}
       <td>
-        <NavLink to={`/books/${book.id}`}>Изменить</NavLink>
-        <button type="button" onClick={() => setShowModal(book.id)}>Удалить</button>
+        <NavLink to={`/books/${book.id}`}><button type="button" className={styles.actionBtns}><FontAwesomeIcon icon={faPen} /></button></NavLink>
+        <button type="button" className={styles.actionBtns} onClick={() => setShowModal(book.id)}><FontAwesomeIcon icon={faTrash} /></button>
       </td>
     </tr>
   );

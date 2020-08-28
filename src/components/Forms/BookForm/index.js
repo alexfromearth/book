@@ -23,6 +23,12 @@ function BookForm() {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [ValidError, setValidError] = useState('');
 
+  /*  не использовал useMemo и useCallback потому, что приложение маленькое
+  *   в этом мнении ссылаюсь на статьи:
+  *   1. https://cdb.reacttraining.com/react-inline-functions-and-performance-bdff784f5578
+  *   2. https://kentcdodds.com/blog/usememo-and-usecallback
+  *    */
+
   const books = useSelector((state) => state.books);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -33,8 +39,9 @@ function BookForm() {
       const selectedBook = books.find((b) => b.id === id);
       setAuthors(selectedBook.authors);
       setBook(selectedBook);
+      setFile(selectedBook.img);
     }
-  }, [books, setBook, id]);
+  }, [books, setBook, id, file]);
 
   const submitBook = (fieldsData) => {
     if (!fieldsData.title || !fieldsData.numberOfPages) return;
@@ -81,11 +88,8 @@ function BookForm() {
       {showUploadModal && (
         <ModalPortal className={modalStyles.myModal}>
           <UploadAvatarModal
-            file={file}
             onFileChange={onFileChange}
-            id={id}
             handleUploadCancel={handleUploadCancel}
-            setShowUploadModal={setShowUploadModal}
           />
         </ModalPortal>
       )}
@@ -107,16 +111,14 @@ function BookForm() {
                 render={(props) => <Input {...props} />}
               />
             </div>
-            <label htmlFor="avatar">Аватар</label>
-            <div>
+            <div className={styles.modalBtns}>
+              <label htmlFor="avatar">Аватар</label>
               {file
                 ? <img src={file} alt="avatar" className={styles.avatar} />
                 : <button type="button" onClick={() => { setShowUploadModal(true); }}>Добавить фото</button>}
             </div>
-            <label htmlFor="authors">Авторы</label>
-            <br />
-            <br />
-            <div>
+            <div className={styles.modalBtns}>
+              <label htmlFor="authors">Авторы</label>
               <ul>
                 {authors.length > 0 ? authors.map((author) => (
                   <li key={author.id}>
@@ -127,7 +129,6 @@ function BookForm() {
                 )) : 'Нет Авторов'}
               </ul>
               <button type="button" onClick={() => { setShowAuthorsModal(true); }}>Добавить автора</button>
-              <br />
               {ValidError && <span style={{ color: 'red' }}>{ValidError}</span>}
             </div>
             <br />
@@ -150,6 +151,8 @@ function BookForm() {
                 name="publishHouse"
                 defaultValue={book ? book.publishHouse : null}
                 validate={maxLength(30)}
+                allowNull
+                parse={(value) => (value === '' ? null : value)}
                 render={(props) => <Input {...props} />}
               />
             </div>
@@ -161,6 +164,8 @@ function BookForm() {
                 name="publishYear"
                 defaultValue={book ? book.publishYear : null}
                 validate={minPublishYear(1800)}
+                allowNull
+                parse={(value) => (value === '' ? null : value)}
                 render={(props) => <Input {...props} />}
               />
             </div>
@@ -172,6 +177,8 @@ function BookForm() {
                 name="releaseDate"
                 defaultValue={book ? book.releaseDate : null}
                 validate={minReleaseDate('01.01.1800')}
+                allowNull
+                parse={(value) => (value === '' ? null : value)}
                 render={(props) => <Input {...props} />}
               />
             </div>
@@ -184,6 +191,8 @@ function BookForm() {
                 defaultValue={book ? book.isbn : null}
                 render={(props) => <Input {...props} />}
                 validate={IsbnValidation}
+                allowNull
+                parse={(value) => (value === '' ? null : value)}
               />
             </div>
             <div className={styles.submitWrapper}>

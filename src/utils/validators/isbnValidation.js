@@ -48,7 +48,8 @@ function IsbnValidation(isbn) {
         break;
       }
       default:
-        return result;
+        result = 'Неверное значение ISBN';
+        break;
     }
   }
   return result;

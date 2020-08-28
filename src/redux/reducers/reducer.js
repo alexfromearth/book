@@ -3,41 +3,7 @@ import { loadState } from '../../utils/localStorage';
 import actionTypes from '../actionTypes';
 
 const initialState = {
-  books: [
-    {
-      id: 'asdsgdfhfghry',
-      title: 'JavaScript. Сильные стороны',
-      authors: [{ id: 'zxczczxcassdas', firstName: 'Дуглас', lastName: 'Крокфорд' }],
-      numberOfPages: 502,
-      publishHouse: null,
-      publishYear: 2012,
-      releaseDate: '01-02-1820',
-      isbn: null,
-      img: null,
-    },
-    {
-      id: 'qweqwtreryy',
-      title: 'Вы не знаете JS',
-      authors: [{ id: 'bvnbvnbcvbb', firstName: 'Дуглас', lastName: 'Крокфорд' }],
-      numberOfPages: 502,
-      publishHouse: null,
-      publishYear: 2012,
-      releaseDate: '01-02-1820',
-      isbn: null,
-      img: null,
-    },
-    {
-      id: 'ghjghjghkgj',
-      title: 'Выразительный Javascript',
-      authors: [{ id: 'rtytrygjfgh', firstName: 'Марейн', lastName: 'Хавербек' }],
-      numberOfPages: 502,
-      publishHouse: null,
-      publishYear: 2019,
-      releaseDate: '01-02-1820',
-      isbn: null,
-      img: null,
-    },
-  ],
+  books: [],
   sortConfig: null,
 };
 
