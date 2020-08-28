@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.sass';
 
-function BookTableHead({ getClassNamesFor, requestSort, sortConfig }) {
+function BookTableHead({ getClassNamesFor, requestSort }) {
   return (
     <thead className="tHead">
       <tr>
@@ -13,7 +13,10 @@ function BookTableHead({ getClassNamesFor, requestSort, sortConfig }) {
         <th scope="col">Список авторов</th>
         <th scope="col">Количество страниц</th>
         <th scope="col">Название издательства</th>
-        <th scope="col">Год публикации</th>
+        <th scope="col">
+          <button type="button" onClick={() => requestSort('publishYear')} className={getClassNamesFor('publishYear')} />
+          Год публикации
+        </th>
         <th scope="col">Дата выхода в тираж</th>
         <th scope="col">ISBN</th>
         <th scope="col">Действия</th>

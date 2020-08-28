@@ -12,14 +12,18 @@ import { addBook, editBook } from '../../../redux/actionCreators';
 import ModalPortal from '../../Modals/ModalPortal';
 import AddAuthorModal from '../../Modals/AddAuthorModal';
 import modalStyles from '../../Modals/ModalPortal/styles.module.sass';
+import UploadAvatarModal from '../../Modals/UploadAvatarModal';
 
 function BookForm() {
   const [authors, setAuthors] = useState([]);
+  const [file, setFile] = useState(null);
+  const [book, setBook] = useState(null);
   const [showAuthorsModal, setShowAuthorsModal] = useState(false);
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [ValidError, setValidError] = useState('');
+
   const books = useSelector((state) => state.books);
   const { id } = useParams();
-  const [ValidError, setValidError] = useState('');
-  const [book, setBook] = useState(null);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -38,20 +42,51 @@ function BookForm() {
       return;
     }
     if (book && id) {
-      dispatch(editBook(id, { ...fieldsData, authors }));
+      dispatch(editBook(id, { ...fieldsData, authors, img: file }));
     } else {
-      dispatch(addBook({ ...fieldsData, authors, id: uuidv4() }));
+      dispatch(addBook({
+        ...fieldsData, authors, id: uuidv4(), img: file,
+      }));
     }
     setValidError('');
     history.push('/');
+  };
+
+  const onFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = (event) => {
+      setFile(event.target.result);
+    };
+    reader.readAsDataURL(selectedFile);
+    setShowUploadModal(false);
+  };
+
+  const handleUploadCancel = () => {
+    setFile(null);
+    setShowUploadModal(false);
   };
 
   return (
     <div className={styles.wrapper}>
       {showAuthorsModal && (
       <ModalPortal className={modalStyles.myModal}>
-        <AddAuthorModal setAuthors={setAuthors} setShowAuthorsModal={setShowAuthorsModal} />
+        <AddAuthorModal
+          setAuthors={setAuthors}
+          setShowAuthorsModal={setShowAuthorsModal}
+        />
       </ModalPortal>
+      )}
+      {showUploadModal && (
+        <ModalPortal className={modalStyles.myModal}>
+          <UploadAvatarModal
+            file={file}
+            onFileChange={onFileChange}
+            id={id}
+            handleUploadCancel={handleUploadCancel}
+            setShowUploadModal={setShowUploadModal}
+          />
+        </ModalPortal>
       )}
       <button type="button" className={styles.goBack} onClick={() => history.push('/')}>Назад</button>
       <Form
@@ -70,6 +105,12 @@ function BookForm() {
                 validate={composeValidators(required, maxLength(30))}
                 render={(props) => <Input {...props} />}
               />
+            </div>
+            <label htmlFor="avatar">Аватар</label>
+            <div>
+              {file
+                ? <img src={file} alt="avatar" className={styles.avatar} />
+                : <button type="button" onClick={() => { setShowUploadModal(true); }}>Добавить фото</button>}
             </div>
             <label htmlFor="authors">Авторы</label>
             <br />

@@ -1,13 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import ModalPortal from '../../Modals/ModalPortal';
-import modalStyles from '../../Modals/ModalPortal/styles.module.sass';
-import RemoveBookModal from '../../Modals/RemoveBookModal';
+import styles from './styles.module.sass';
 
-function BookItem({ book, showModal, setShowModal }) {
+function BookItem({ book, setShowModal }) {
   return (
     <tr>
-      <td>какая-то картинка</td>
+      <td>
+        {book.img
+          ? <img src={book.img} alt="avatar" className={styles.avatar} />
+          : 'какая-то картинка'}
+      </td>
       <td>{book.title}</td>
       <td>
         <ul>
@@ -27,12 +29,7 @@ function BookItem({ book, showModal, setShowModal }) {
       {book.isbn ? <td>{book.isbn}</td> : <td>пусто</td>}
       <td>
         <NavLink to={`/books/${book.id}`}>Изменить</NavLink>
-        <button type="button" onClick={() => setShowModal('delete')}>Удалить</button>
-        {showModal === 'delete' && (
-          <ModalPortal className={modalStyles.myModal}>
-            <RemoveBookModal id={book.id} setShowModal={setShowModal} />
-          </ModalPortal>
-        )}
+        <button type="button" onClick={() => setShowModal(book.id)}>Удалить</button>
       </td>
     </tr>
   );
