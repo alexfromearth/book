@@ -1,0 +1,6 @@
+export default {
+  ADD_BOOK: 'ADD_BOOK',
+  REMOVE_BOOK: 'REMOVE_BOOK',
+  EDIT_BOOK: 'EDIT_BOOK',
+  SET_SORT_CONFIG: 'SET_SORT_CONFIG',
+};
