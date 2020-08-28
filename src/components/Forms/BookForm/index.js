@@ -13,6 +13,7 @@ import ModalPortal from '../../Modals/ModalPortal';
 import AddAuthorModal from '../../Modals/AddAuthorModal';
 import modalStyles from '../../Modals/ModalPortal/styles.module.sass';
 import UploadAvatarModal from '../../Modals/UploadAvatarModal';
+import IsbnValidation from '../../../utils/validators/isbnValidation';
 
 function BookForm() {
   const [authors, setAuthors] = useState([]);
@@ -182,11 +183,8 @@ function BookForm() {
                 name="isbn"
                 defaultValue={book ? book.isbn : null}
                 render={(props) => <Input {...props} />}
-                // валидация isbn
+                validate={IsbnValidation}
               />
-            </div>
-            <div>
-              {/* Загрузка изображения */}
             </div>
             <div className={styles.submitWrapper}>
               <button disabled={submitting || pristine}>{book ? 'Изменить' : 'Добавить'}</button>
